@@ -1,0 +1,21 @@
+<h1> Angular </h1>
+<input type="text" [appInputFormat]="'uppercase'">
+<!-- <div class="container">
+    <div *ngFor="let car of cars" [ngClass]="{
+        'alert-success':car.name === 'Kia',
+        'alert-info':car.name === 'BMW',
+        'alert-warning':car.name === 'Ford'
+    }">
+    {{ car.name }}
+    </div>
+    <div [ngStyle] = "{'color': 'Red', 'font-size': '50px'}">I'm Styling...</div>
+</div> -->
+<!-- <courses></courses> -->
+<app-course [isFavorite]="post.isFavorite" (change)="onFavoriteChanged($event)"></app-course>
+<app-panel>
+    <ng-container class="heading">Heading</ng-container>
+    <div class="body">
+        <h2>Body</h2>
+        <p> Some content here... </p>
+    </div>
+</app-panel>

@@ -1,0 +1,51 @@
+<br>
+<p>course works!</p>
+
+<span>{{ task.assignee?.name }}</span>
+
+<!-- <h2> {{ title }} </h2> -->
+<button (click)="onClick()"> Push </button>
+
+<button (click)="loaddata()">Load Data</button>
+
+<div *ngIf = "courses.length > 0; then listofit else nocourses"></div>
+<ng-template #listofit>
+    List of courses
+</ng-template>
+<ng-template #nocourses>
+    No courses yet
+</ng-template>
+<!-- <ng-template [ngIf] = "courses.length > 0 ">
+    List of courses
+</ng-template> -->
+
+
+<!-- <div [hidden] = "courses.length == 0">
+    List of courses
+</div>
+<div [hidden] = "courses.length > 0">
+    No courses yet
+</div> -->
+
+<ul class="nav nav-pills">
+    <li [class.active]="viewmode == 'map'">
+        <a (click)="viewmode = 'map'">Map view</a>
+    </li>
+    <li [class.active]="viewmode == 'list'">
+        <a (click)="viewmode = 'list'">List view</a>
+    </li>
+</ul>
+<div [ngSwitch]="viewmode">
+    <div *ngSwitchCase="'map'">Map View Content</div>
+    <div *ngSwitchCase="'list'">List View Content</div>
+    <div *ngSwitchDefault>otherwise</div>
+</div>
+
+<button (click)="onAdd()">Add</button>
+<ul>
+    <li *ngFor = "let data of datas; even as isEven; trakeBy: trackCourse">
+        {{ data.name }} <span *ngIf = "isEven">(Even)</span>
+        <button (click)="onChange(data)">update</button>
+    </li>
+    <button (click)="onRemove()">Remove</button>
+</ul>
