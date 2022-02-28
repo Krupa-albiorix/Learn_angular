@@ -53,6 +53,13 @@
         </label>
     </div>
 
+    <div *ngFor="let method of contactMethods" class="radio">
+        <label>
+            <input ngModel type="radio" name="contactMethod" [value]="method.id">
+            {{ method.name }}
+        </label>
+    </div>
+
     <p>
         {{ f.value | json }}
     </p>
