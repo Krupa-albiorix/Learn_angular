@@ -1,6 +1,6 @@
 
 import { SignupFormComponent } from './signup-form/signup-form.component';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -16,6 +16,16 @@ import { NewCourseFormComponent } from './new-course-form/new-course-form.compon
 import { NewDataFormComponent } from './new-data-form/new-data-form.component';
 import { CRUDComponent } from './crud/crud.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PostService } from './services/post.service';
+import { AppErrorHandler } from './common/app-error-handler';
+import { GithubProfileComponent } from './github-profile/github-profile.component';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RouterModule } from '@angular/router';
+import { GithubFollowersComponent } from './github-followers/github-followers.component';
+import { GithubFollowersService } from './services/github-followers.service';
+import { GithubProfileService } from './github-profile.service';
 
 @NgModule({
   declarations: [
@@ -29,16 +39,47 @@ import { HttpClientModule } from '@angular/common/http';
     ContactFormComponent,
     NewCourseFormComponent,
     NewDataFormComponent,
-    CRUDComponent
+    CRUDComponent,
+    GithubProfileComponent,
+    GithubFollowersComponent,
+    HomeComponent,
+    NavbarComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      { 
+        path: '', 
+        component: HomeComponent 
+      },
+      { 
+        path: 'followers/:id/:username', 
+        component: GithubProfileComponent 
+      },
+      { 
+        path: 'followers', 
+        component: GithubFollowersComponent 
+      },
+      { 
+        path: 'posts', 
+        component: CRUDComponent 
+      },
+      { 
+        path: '**', 
+        component: NotFoundComponent 
+      },
+    ])
   ],
   providers: [
-    CoursesService
+    CoursesService,
+    PostService,
+    GithubFollowersService,
+    GithubProfileService,
+    { provide : ErrorHandler, useClass : AppErrorHandler}
   ],
   bootstrap: [AppComponent]
 })
