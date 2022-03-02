@@ -20,5 +20,4 @@ export class GithubProfileComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     console.log(id);
   }
-
 }

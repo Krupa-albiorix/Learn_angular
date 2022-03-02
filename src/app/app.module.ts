@@ -1,4 +1,3 @@
-
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,6 +25,10 @@ import { RouterModule } from '@angular/router';
 import { GithubFollowersComponent } from './github-followers/github-followers.component';
 import { GithubFollowersService } from './services/github-followers.service';
 import { GithubProfileService } from './github-profile.service';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { ExpenseGuard } from './expense.guard';
+import { LoggedinGuard } from './loggedin.guard';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import { GithubProfileService } from './github-profile.service';
     GithubFollowersComponent,
     HomeComponent,
     NavbarComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,17 +61,35 @@ import { GithubProfileService } from './github-profile.service';
         path: '', 
         component: HomeComponent 
       },
+      {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [LoggedinGuard]
+      },
+      {
+        path: 'logout',
+        component: LogoutComponent,
+        canActivate: [ExpenseGuard]
+      },
       { 
         path: 'followers/:id/:username', 
-        component: GithubProfileComponent 
+        component: GithubProfileComponent,
+        canActivate: [ExpenseGuard]
       },
       { 
         path: 'followers', 
-        component: GithubFollowersComponent 
+        component: GithubFollowersComponent,
+        canActivate: [ExpenseGuard]
       },
       { 
         path: 'posts', 
-        component: CRUDComponent 
+        component: CRUDComponent,
+        canActivate: [ExpenseGuard]
+      },
+      {
+        path: 'navbar',
+        component: NavbarComponent,
+        canActivate: [ExpenseGuard]
       },
       { 
         path: '**', 
@@ -75,6 +98,8 @@ import { GithubProfileService } from './github-profile.service';
     ])
   ],
   providers: [
+    LoggedinGuard,
+    ExpenseGuard,
     CoursesService,
     PostService,
     GithubFollowersService,

@@ -1,6 +1,7 @@
 import { Cars } from './cars';
 import { Component } from '@angular/core';
 import { FavoriteChangedEventArgs } from './course/course.component';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -33,4 +34,22 @@ export class AppComponent {
       "color": 'olive'
     }
   ]
+
+  title1 = 'Expense Manager';
+  isUserLoggedIn = false;
+
+   constructor(private authService: AuthService) {}
+
+   ngOnInit() {
+      let storeData = localStorage.getItem("isUserLoggedIn");
+      console.log("StoreData: " + storeData);
+
+      if( storeData != null && storeData == "true")
+         this.isUserLoggedIn = true;
+      else
+
+
+         this.isUserLoggedIn = false;
+   }
+
 }
